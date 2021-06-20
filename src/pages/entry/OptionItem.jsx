@@ -32,17 +32,9 @@ const OptionItem = ({ optionType, name, imagePath, updateItemCount }) => {
   );
 
   const toppingForm = (
-    <Form.Group
-      controlId={`${name}-count`}
-      as={Row}
-      style={{ marginTop: "10px" }}
-    >
-      <Col xs="5">
-        <Form.Control type="checkbox" onChange={handleChange} />
-      </Col>
-      <Form.Label column xs="6" style={{ textAlign: "left" }}>
-        {name}
-      </Form.Label>
+    <Form.Group controlId={`${name}-count`} style={{ marginTop: "10px" }}>
+      <input id={name} type="checkbox" onChange={handleChange} />
+      <label htmlFor={name}>{name}</label>
     </Form.Group>
   );
 
