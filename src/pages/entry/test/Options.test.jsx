@@ -1,4 +1,5 @@
 import { render, screen } from "../../../test-utils/testing-library-utils";
+import userEvent from "@testing-library/user-event";
 import Options from "../Options";
 
 describe("Options", () => {
@@ -15,6 +16,19 @@ describe("Options", () => {
 
       const altText = scoopImages.map((element) => element.alt);
       expect(altText).toEqual(["Chocolate scoop", "Vanilla scoop"]);
+    });
+
+    test("not update subtotal when input invalid data", async () => {
+      const vanillaInput = await screen.findByRole("spinbutton", {
+        name: /vanilla/i,
+      });
+      userEvent.clear(vanillaInput);
+      userEvent.type(vanillaInput, "-1");
+
+      const subtotal = screen.getByText("Scoops total: $0.00", {
+        exact: false,
+      });
+      expect(subtotal).toBeInTheDocument();
     });
   });
 

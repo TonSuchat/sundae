@@ -10,14 +10,17 @@ const OptionItem = ({ optionType, name, imagePath, updateItemCount }) => {
     let newItemCount = 0;
     if (optionType === "scoops") {
       newItemCount = event.target.value;
-      const currentValue = +newItemCount;
-      setIsValid(
+      const currentValue = parseFloat(newItemCount);
+      const isValid =
         currentValue >= 0 &&
-          currentValue <= 10 &&
-          Math.floor(currentValue) === currentValue
-      );
-    } else newItemCount = event.currentTarget.checked ? 1 : 0;
-    updateItemCount(name, newItemCount);
+        currentValue <= 10 &&
+        Math.floor(currentValue) === currentValue;
+      setIsValid(isValid);
+      if (isValid) updateItemCount(name, newItemCount);
+    } else {
+      newItemCount = event.currentTarget.checked ? 1 : 0;
+      updateItemCount(name, newItemCount);
+    }
   };
 
   const scoopForm = (
