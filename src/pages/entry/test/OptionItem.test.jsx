@@ -17,7 +17,6 @@ test.each([["-1"], ["1.5"], ["11"]])(
     const vanillaInput = screen.getByRole("spinbutton", { name: /vanilla/i });
     expect(vanillaInput).not.toHaveClass("is-invalid");
 
-    console.log("invalid-data", invalidData);
     userEvent.clear(vanillaInput);
     userEvent.type(vanillaInput, invalidData);
     expect(vanillaInput).toHaveClass("is-invalid");
