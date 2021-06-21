@@ -1,13 +1,22 @@
-import React from "react";
+import { useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 
 const OptionItem = ({ optionType, name, imagePath, updateItemCount }) => {
+  const [isValid, setIsValid] = useState(true);
+
   const handleChange = (event) => {
     let newItemCount = 0;
-    if (optionType === "scoops") newItemCount = event.target.value;
-    else newItemCount = event.currentTarget.checked ? 1 : 0;
+    if (optionType === "scoops") {
+      newItemCount = event.target.value;
+      const currentValue = +newItemCount;
+      setIsValid(
+        currentValue >= 0 &&
+          currentValue <= 10 &&
+          Math.floor(currentValue) === currentValue
+      );
+    } else newItemCount = event.currentTarget.checked ? 1 : 0;
     updateItemCount(name, newItemCount);
   };
 
@@ -26,6 +35,7 @@ const OptionItem = ({ optionType, name, imagePath, updateItemCount }) => {
           min={0}
           defaultValue={0}
           onChange={handleChange}
+          isInvalid={!isValid}
         />
       </Col>
     </Form.Group>
